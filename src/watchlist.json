@@ -1,4 +1,10 @@
 {
-  "watched": [],
+  "watched": [
+    {
+      "title": "Inter",
+      "genre": "jdk",
+      "rating": "5"
+    }
+  ],
   "to_watch": []
 }

@@ -72,7 +72,7 @@ background-image: url(assets/backhov.png)
     width: 400px;
     height: 450px;
     margin:auto;
-    margin-top: 70px;
+    margin-top: 80px;
     align-self: center;
 }
 
@@ -106,6 +106,7 @@ h1{
 }
 .movbutton:hover {
     background-image: url(assets/addmoviehov.png);
+    background-repeat: no-repeat;
 }
 
 .inputslist{

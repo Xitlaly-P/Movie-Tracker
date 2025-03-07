@@ -13,6 +13,7 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 500,
     height: 600,
+    frame: false,
     resizable: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
@@ -25,7 +26,11 @@ const createWindow = () => {
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  
+  if (!app.isPackaged) {
+    mainWindow.webContents.openDevTools();
+  }
+
 };
 
 // This method will be called when Electron has finished
