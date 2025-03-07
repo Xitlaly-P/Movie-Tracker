@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
+html{
+    font-family: "Pixelify Sans", sans-serif;
+}
+html{
+    background-image: url(./assets/base.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 100vw;
+    height: 100vh;
+    font-family: "Pixelify Sans", sans-serif;
+    color: #1E1E1E;
+  }
+  
+.inputstyle{
+    position: relative;
+    cursor: text;
+    font-size: 14px;
+    line-height: 18px;
+    padding: 0 16px;
+    height: 28px;
+    width:84px;
+    background-color: #fff;
+    border: 1px solid #d6d6e7;
+    border-radius: 3px;
+    color: rgb(35, 38, 59);
+    box-shadow: inset 0 1px 4px 0 rgb(119 122 175 / 30%);
+    overflow: hidden;
+    transition: all 100ms ease-in-out;
+}
+.inputstyle:focus {
+    border-color: #14172a;
+    box-shadow: 0 1px 0 0 rgb(35 38 59 / 5%);
+}
+
+.ex{
+    background-image: url(assets/ex.png);
+    background-color: #ffffff00;
+    border: none;
+    width: 38px;
+    height: 54px;
+    position:absolute;
+    top:1px;
+    right: 15px;
+}
+.ex:hover {
+background-image: url(assets/exhov.png);
+}
+
+  
+.back{
+    background-image: url(assets/back.png);
+    background-color: #ffffff00;
+    border: none;
+    width: 38px;
+    height: 42px;
+    position:absolute;
+    top:13px;
+    right: 64px;
+}
+
+.back:hover {
+background-image: url(assets/backhov.png)
+}
+
+.topbuttons{
+    display: flex;
+    flex-direction: row;
+}
+
+.greenpart{
+    width: 400px;
+    height: 450px;
+    margin:auto;
+    margin-top: 70px;
+    align-self: center;
+}
+
+h1{
+    justify-self: center;
+}
+.list{
+    height:55%;
+    max-height: 55%;
+    overflow-y: scroll; /* Enables vertical scrolling */
+    scrollbar-width: none;
+    margin-bottom: 10px;
+}
+  
+.list::-webkit-scrollbar {
+    display: none; /* Hides scrollbar for Chrome, Safari, Edge */
+}
+
+.movbutton{
+    display: flex;
+    background-image: url(assets/addmovie.png);
+    background-color: #ffffff00;
+    border: none;
+    width: 179px;
+    height: 107px;
+    margin: auto;
+    justify-content: center;
+    justify-self: center;
+    align-items: center;
+    align-self: center;
+}
+.movbutton:hover {
+    background-image: url(assets/addmoviehov.png);
+}
+
+.inputslist{
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    justify-self: center;
+    align-items: center;
+    align-self: center;
+    gap:4px;
+}
+
+li button{
+    background-color: #d6d6e700;
+    font-family: "Pixelify Sans", sans-serif;
+    border:none;
+    color: #952b2b;
+    font-size: 20px;
+}
+li button:hover{
+    font-size: 23px;
+    color: #7c2626;
+}

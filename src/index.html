@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Watchlist Tracker</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <button class="ex" onclick="closeApp()"></button>
+    <div class = 'homebuttons'>
+      <button onclick="navigate('watched.html')" class="watchedbutton"></button>
+      <button onclick="navigate('to-watch.html')" class="towatchbutton"></button>
+    </div>
+
+    <script>
+      function navigate(page) {
+        window.location.href = page;
+      }
+
+      const { ipcRenderer } = require('electron');
+
+      function closeApp() {
+        ipcRenderer.send('close-app');
+      }
+    </script>
+  </body>
+</html>

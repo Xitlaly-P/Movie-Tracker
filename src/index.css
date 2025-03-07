@@ -1,0 +1,62 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif;
+  margin: auto;
+  max-width: 38rem;
+  padding: 2rem;
+}
+
+html{
+  background-image: url(./assets/homebackground.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 100vw;
+  height: 100vh;
+}
+
+.homebuttons{
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  top: 400px;
+  left: 60px;
+  align-items: center;
+  justify-content: center;
+}
+.watchedbutton{
+  background-image: url(assets/watchedbutton.png);
+  background-color: #ffffff00;
+  border: none;
+  width: 179px;
+  height: 107px;
+}
+
+.watchedbutton:hover {
+  background-image: url(assets/watchedbuttonhov.png);
+}
+
+.towatchbutton{
+  background-image: url(assets/towatchbutton.png);
+  background-color: #ffffff00;
+  border: none;
+  width: 179px;
+  height: 107px;
+}
+
+.towatchbutton:hover {
+  background-image: url(assets/towatchbuttonhov.png);
+}
+
+.ex{
+  background-image: url(assets/ex.png);
+  background-color: #ffffff00;
+  border: none;
+  width: 38px;
+  height: 54px;
+  position:absolute;
+  top:1px;
+  right: 15px;
+}
+.ex:hover {
+  background-image: url(assets/exhov.png);
+}

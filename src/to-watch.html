@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>To Watch</title>
+    <link rel="stylesheet" href="watched.css" />
+  </head>
+  <body>
+    <div class="topbuttons">
+      <button class="back" onclick="goHome()"></button>
+      <button class="ex" onclick="closeApp()"></button>
+    </div>
+    <div class="greenpart">
+      <h1>Movies to Watch</h1>
+      <div class="list">
+        <ul id="to-watch-list"></ul>
+      </div>
+      <div class=inputslist>
+        <input type="text" id="title" placeholder="Title" class="inputstyle" />
+        <input type="text" id="genre" placeholder="Genre" class="inputstyle"/>
+      </div>   
+      <button onclick="addMovie()" class="movbutton"></button>
+
+    </div>
+    <script src="to-watch.js"></script>
+  </body>
+</html>
