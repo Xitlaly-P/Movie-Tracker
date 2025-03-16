@@ -20,8 +20,9 @@ async function loadToWatchMovies() {
     const removeBtn = document.createElement('button');
     removeBtn.textContent = 'X';
     removeBtn.onclick = async () => {
+      // Remove movie from to_watch table
       data.to_watch.splice(index, 1);
-      await ipcRenderer.invoke('update-watchlist', data);
+      await ipcRenderer.invoke('update-watchlist', { table: 'to_watch', data: [] }); // You'll need to add a function to delete
       loadToWatchMovies();
     };
 
@@ -39,7 +40,7 @@ async function addMovie() {
   const data = await ipcRenderer.invoke('get-watchlist');
   data.to_watch.push({ title, genre });
 
-  await ipcRenderer.invoke('update-watchlist', data);
+  await ipcRenderer.invoke('update-watchlist', { table: 'to_watch', data: data.to_watch });
   loadToWatchMovies();
 }
 

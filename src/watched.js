@@ -7,6 +7,7 @@ function goHome() {
 function closeApp() {
   ipcRenderer.send('close-app');
 }
+
 async function loadWatchedMovies() {
   const data = await ipcRenderer.invoke('get-watchlist');
   const list = document.getElementById('watched-list');
@@ -29,7 +30,8 @@ async function addMovie() {
   const data = await ipcRenderer.invoke('get-watchlist');
   data.watched.push({ title, genre, rating });
 
-  await ipcRenderer.invoke('update-watchlist', data);
+  await ipcRenderer.invoke('update-watchlist', { table: 'watched', data: data.watched });
   loadWatchedMovies();
 }
+
 loadWatchedMovies();

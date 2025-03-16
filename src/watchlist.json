@@ -6,5 +6,10 @@
       "rating": "5"
     }
   ],
-  "to_watch": []
+  "to_watch": [
+    {
+      "title": "title",
+      "genre": "genre"
+    }
+  ]
 }

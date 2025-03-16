@@ -1,12 +1,23 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 
 const path = require('node:path');
-const fs = require('fs');
+const sqlite3 = require('sqlite3').verbose();
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit();
 }
+
+const dbPath = path.join(__dirname, 'watchlist.db');
+const db = new sqlite3.Database(dbPath, (err) => {
+  if (err) {
+    console.error("Database opening error: ", err);
+  } else {
+    // Initialize database if it doesn't exist
+    db.run("CREATE TABLE IF NOT EXISTS to_watch (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, genre TEXT)");
+    db.run("CREATE TABLE IF NOT EXISTS watched (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, genre TEXT, rating INTEGER)");
+  }
+});
 
 const createWindow = () => {
   // Create the browser window.
@@ -47,37 +58,66 @@ app.whenReady().then(() => {
     }
   });
 });
-
-// Quit when all windows are closed, except on macOS. There, it's common
-// for applications and their menu bar to stay active until the user quits
-// explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
   }
 });
 
-const filePath = path.join(__dirname, 'watchlist.json');
-
-function readWatchlist() {
-  return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+// Function to retrieve the watchlist (to_watch and watched)
+function getWatchlist(callback) {
+  db.all("SELECT * FROM to_watch", (err, toWatch) => {
+    if (err) {
+      console.error("Error getting to_watch: ", err);
+      callback(err);
+    }
+    db.all("SELECT * FROM watched", (err, watched) => {
+      if (err) {
+        console.error("Error getting watched: ", err);
+        callback(err);
+      }
+      callback(null, { to_watch: toWatch, watched: watched });
+    });
+  });
 }
 
-function writeWatchlist(data) {
-  fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8');
+// Function to update the watchlist (to_watch or watched)
+function updateWatchlist(table, data, callback) {
+  const stmt = db.prepare(`INSERT INTO ${table} (title, genre, rating) VALUES (?, ?, ?)`);
+  data.forEach((movie) => {
+    stmt.run(movie.title, movie.genre, movie.rating || null);
+  });
+  stmt.finalize(callback);
 }
 
+// Handle IPC calls
 ipcMain.handle('get-watchlist', () => {
-  return readWatchlist();
+  return new Promise((resolve, reject) => {
+    getWatchlist((err, data) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(data);
+      }
+    });
+  });
 });
 
-ipcMain.handle('update-watchlist', (event, data) => {
-  writeWatchlist(data);
+ipcMain.handle('update-watchlist', (event, { table, data }) => {
+  if (table === 'to_watch') {
+    // Delete all entries from the 'to_watch' table
+    db.run('DELETE FROM to_watch');
+    // Insert the new data into the 'to_watch' table
+    const stmt = db.prepare('INSERT INTO to_watch (title, genre) VALUES (?, ?)');
+    data.forEach((movie) => {
+      stmt.run(movie.title, movie.genre);
+    });
+    stmt.finalize();
+  } else if (table === 'watched') {
+    // Handle watched data updates here if necessary
+  }
 });
 
 ipcMain.on('close-app', () => {
-  app.quit(); // Closes the entire app
+  app.quit();
 });
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and import them here.
